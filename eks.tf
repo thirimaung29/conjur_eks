@@ -44,7 +44,7 @@ module "eks" {
     nodes = {
       min_size     = 1
       max_size     = 2
-      desired_size = 1
+      desired_size = 0
 
       instance_type = ["t2.small"]
     }
