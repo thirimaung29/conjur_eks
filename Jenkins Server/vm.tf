@@ -5,8 +5,8 @@ module "vpc" {
   name = "jenkins-vpc"
   cidr = var.vpc_cidr
 
-  azs            = data.aws_availability_zones.azs.names
-  public_subnets = var.public_subnets
+  azs                     = data.aws_availability_zones.azs.names
+  public_subnets          = var.public_subnets
   map_public_ip_on_launch = true
 
   enable_dns_hostnames = true
@@ -67,14 +67,15 @@ module "ec2_instance" {
 
   name = "Jenkins-Server"
 
+  ami                         = "ami-0140c344ea05bbd7a"
   instance_type               = var.instance_type
-  key_name                    = "jenkins-server-key"
+  key_name                    = "conjur_key"
   monitoring                  = true
   vpc_security_group_ids      = [module.sg.security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
   user_data                   = file("jenkins-install.sh")
-  availability_zone           = data.aws_availability_zones.azs.names[0]
+  availability_zone = data.aws_availability_zones.azs.names[0]
 
   tags = {
     Name        = "Jenkins-Server"
