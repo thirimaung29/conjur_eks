@@ -3,18 +3,8 @@ data "aws_ami" "example" {
   owners      = ["amazon"]
 
   filter {
-    name   = "name"
-    values = ["amzn2-ami-kernel-*-hvm-*-x86_64-gp2"]
-  }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    name   = "image-id"
+    values = ["ami-0140c344ea05bbd7a"]
   }
 }
 
