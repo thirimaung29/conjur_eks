@@ -14,16 +14,16 @@ module "vpc" {
   single_nat_gateway   = true
 
   tags = {
-    "kubernetes.io/cluster/my-eks-cluster" = "shared"
+    "kubernetes.io/cluster/conjur-eks-cluster" = "shared"
   }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/my-eks-cluster" = "shared"
+    "kubernetes.io/cluster/conjur-eks-cluster" = "shared"
     "kubernetes.io/role/elb"               = 1
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/my-eks-cluster" = "shared"
+    "kubernetes.io/cluster/conjur-eks-cluster" = "shared"
     "kubernetes.io/role/internal-elb"      = 1
   }
 
@@ -32,7 +32,7 @@ module "vpc" {
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name    = "my-eks-cluster"
+  cluster_name    = "conjur-eks-cluster"
   cluster_version = "1.24"
 
   cluster_endpoint_public_access = true
@@ -43,8 +43,8 @@ module "eks" {
   eks_managed_node_groups = {
     nodes = {
       min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      max_size     = 1
+      desired_size = 1
 
       instance_type = ["t2.small"]
     }
