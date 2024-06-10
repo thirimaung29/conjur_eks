@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: test-eks-namespace
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      serviceAccountName: test-eks-sa
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80 
+          volumeMounts:
+          - mountPath: /var/run/secrets/tokens  # Suggested mount path for custom JWT
+            name: jwt-token
+            readOnly: true
+      volumes:
+        - name: conjur-access-token
+          emptyDir:
+            medium: Memory
+        - name: jwt-token
+          projected:
+            sources:
+              - serviceAccountToken:
+                  path: jwt
+                  expirationSeconds: 6000
+                  audience: conjur
