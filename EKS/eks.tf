@@ -49,9 +49,4 @@ module "eks" {
       instance_type = ["t2.small"]
     }
   }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
