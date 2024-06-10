@@ -1,4 +1,12 @@
 #!/bin/bash
+export SUBSCRIPTION_USERNAME="winthirimaung282@gmail.com"
+export SUBSCRIPTION_PASSWORD="YemayPisima29$@"
+
+# Run subscription-manager with sudo and provide necessary credentials
+sudo -S subscription-manager register <<EOF
+$SUBSCRIPTION_USERNAME
+$SUBSCRIPTION_PASSWORD
+EOF
 
 #install requirements 
 sudo yum install vim wget jq -y 
