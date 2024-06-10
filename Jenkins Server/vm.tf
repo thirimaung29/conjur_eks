@@ -44,7 +44,15 @@ module "sg" {
       protocol    = "tcp"
       description = "SSH"
       cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8 // ICMP Echo Request
+      to_port     = 0 // ICMP Echo Reply
+      protocol    = "icmp"
+      description = "Allow ICMP ping"
+      cidr_blocks = "0.0.0.0/0" // Allow from any IP address
     }
+
   ]
 
   egress_with_cidr_blocks = [
@@ -75,7 +83,7 @@ module "ec2_instance" {
   subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
   user_data                   = file("jenkins-install.sh")
-  availability_zone = data.aws_availability_zones.azs.names[0]
+  availability_zone           = data.aws_availability_zones.azs.names[0]
 
   tags = {
     Name        = "Jenkins-Server"
