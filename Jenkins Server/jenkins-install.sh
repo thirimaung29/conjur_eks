@@ -1,17 +1,9 @@
 #!/bin/bash
-USERNAME="winthirimaung282@gmail.com"
-PASSWORD="YemayPisima29$@"
 
-# Run the subscription-manager register command
-subscription-manager register --username="$USERNAME" --password="$PASSWORD"
-
-# Optional: Attach the subscription automatically
-subscription-manager attach --auto
-
-#install requirements 
+# install requirements 
 sudo yum install vim wget jq -y 
 
-# install java 
+# # install java 
 sudo yum install java-17-openjdk -y
 
 # install helm
@@ -26,8 +18,6 @@ sudo yum install git -y
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 sudo yum -y install terraform
-
-
 
 # install jenkins
 sudo yum update -y
