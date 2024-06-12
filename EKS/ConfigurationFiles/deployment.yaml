@@ -21,14 +21,14 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80 
+          envFrom:
+          - configMapRef:
+              name: conjur-connect
           volumeMounts:
           - mountPath: /var/run/secrets/tokens  # Suggested mount path for custom JWT
             name: jwt-token
             readOnly: true
       volumes:
-        - name: conjur-access-token
-          emptyDir:
-            medium: Memory
         - name: jwt-token
           projected:
             sources:
@@ -36,3 +36,4 @@ spec:
                   path: jwt
                   expirationSeconds: 6000
                   audience: conjur
+
