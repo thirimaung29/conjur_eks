@@ -21,6 +21,9 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80 
+          env:
+          - name: JWT_TOKEN_PATH
+            value: /var/run/secrets/tokens/jwt
           envFrom:
           - configMapRef:
               name: conjur-connect
